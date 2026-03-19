@@ -1,0 +1,149 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  font-family: Arial;
+  background: #121212;
+  color: white;
+  overflow: hidden; /* No default scrollbar for body */
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: black;
+  padding: 15px;
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* SIDEBAR TITLE */
+.sidebar h2 {
+  color: #1DB954;
+}
+
+.logo {
+  color: #1DB954;
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between logo image and text */
+}
+
+.logo img.logo-img {
+  width: 30px;   /* adjust size as needed */
+  height: 30px;
+  object-fit: contain;
+}
+
+/* MAIN CONTENT (SHIFTED PROPERLY) */
+.main {
+  margin-left: 220px;             /* EXACT sidebar width */
+  width: calc(100% - 220px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* allows vertical scroll */
+}
+
+/* NAVBAR */
+.navbar {
+  padding: 15px;
+  background: black;
+}
+
+.navbar input {
+  width: 300px;
+  padding: 8px;
+  border-radius: 20px;
+  border: none;
+}
+
+/* CONTENT */
+.container {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* CARD SECTION */
+.card-container {
+  display: flex;
+  gap: 15px;
+  /* overflow-x: auto;       scrollable horizontally */
+  /* scrollbar-width: none;  Firefox */
+  /* -ms-overflow-style: none; IE 10+ */
+  scroll-behavior: smooth;
+  /* padding: 0 10px 10px 0; add right padding for last card */
+}
+
+.card-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* HIDE SCROLLBAR FOR WEBKIT (Chrome, Safari) */
+.card-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* CARD */
+.card {
+  background: #181818;
+  padding: 10px;
+  border-radius: 10px;
+  width: 150px;
+  height: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* IMAGE FIX */
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  background: black;
+  border-radius: 10px;
+}
+
+/* BUTTON */
+button {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* PLAYER */
+.player {
+  position: fixed;
+  bottom: 0;
+  left: 220px;
+  width: calc(100% - 220px);
+  background: black;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* PLAYLIST */
+#playlist h4 {
+  margin-top: 10px;
+}
+
+#playlist li {
+  cursor: pointer;
+  margin-left: 10px;
+}

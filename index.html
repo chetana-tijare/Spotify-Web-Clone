@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spotify Clone</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="logo">
+        <img src="images/logo.png" alt=""Spotify logo" class="logo-img">
+        Spotify
+    </div><br><br>
+  <div id="playlist"></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <div class="navbar">
+    <input type="text" placeholder="What do you want to play?">
+  </div>
+
+  <div class="container">
+    <h2>Trending Songs</h2>
+    <div class="card-container" id="trending"></div>
+    <br>
+    <h2>Popular Artists</h2>
+    <div class="card-container" id="artists"></div>
+    <br>
+    <h2>Marathi Songs</h2>
+    <div class="card-container" id="marathi"></div>
+    <br>
+    <h2>Motivational Songs</h2>
+    <div class="card-container" id="motivational"></div>
+  </div>
+
+</div>
+
+<!-- PLAYER -->
+<div class="player">
+  <p id="nowPlaying">No song playing</p>
+  <button onclick="playSong()">▶</button>
+  <button onclick="pauseSong()">⏸</button>
+  <button onclick="stopSong()">⏹</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
