@@ -34,7 +34,7 @@ Spotify-Clone/
 │── script.js                   
 │── audio/              
 │── images/             
-│── Spotify_Clone_Case_Study/      ct  
+│── Spotify_Clone_Case_Study/
 
 ---
 
@@ -57,19 +57,15 @@ Create Playlist → Add Songs
 
 ## 📚 Case Study  
 
-This project is supported by a detailed case study on the Playlist Manager system.  
-
-📄 Download Case Study PDF:  
+The detailed written case study for this project is available here:   
 👉 [Download Case Study](Spotify_Clone_Case_Study.pdf)
 
 ---
 
 ## 📸 Screenshot (Main Page)  
 
-<p align="center">
-  <img src="screenshots/home_page.jpg" width="80%">
-</p>
-
+The following screenshot shows the main interface of the Spotify Clone application
+👉 ![Main Page](home_page.png)
 ---
 
 ## 📊 Conclusion  
