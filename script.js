@@ -1,7 +1,7 @@
 let currentSongIndex = -1;
-let songsAudio = []; // store audio objects for all songs
+let songsAudio = [];
 
-// 5 sample audio clips (song1 to song5)
+// SAMPLE AUDIO FILES
 let sampleAudios = [
   "audio/song1.mp3",
   "audio/song2.mp3",
@@ -22,6 +22,7 @@ let songs = {
     {name:"Kalank", img:"images/kalank.jpg"},
     {name:"Tauba Tauba", img:"images/taubatauba.jpg"}
   ],
+
   artists: [
     {name:"Shankar Mahadevan", img:"images/shankar.jpg"},
     {name:"A R Rahman", img:"images/arrahman.jpg"},
@@ -32,6 +33,7 @@ let songs = {
     {name:"Atif Aslam", img:"images/atif.jpg"},
     {name:"Palak Muchhal", img:"images/palak.jpg"}
   ],
+
   marathi: [
     {name:"Mitwa", img:"images/mitwa.jpg"},
     {name:"Kakan", img:"images/kakan.jpg"},
@@ -42,6 +44,7 @@ let songs = {
     {name:"Gulabi Sadi", img:"images/gulabisadi.jpg"},
     {name:"Shaky", img:"images/shaky.jpg"}
   ],
+
   motivational: [
     {name:"Bandeya Re Bandeya", img:"images/bandeya.jpg"},
     {name:"Shabashiya", img:"images/shabashiya.jpg"},
@@ -54,16 +57,17 @@ let songs = {
   ]
 };
 
-// initialize audio objects for all songs
+// CREATE AUDIO OBJECTS
 let allSongs = songs.trending.concat(songs.marathi, songs.motivational);
+
 allSongs.forEach((s, i) => {
   songsAudio[i] = new Audio(sampleAudios[i % sampleAudios.length]);
 });
 
-// LOAD SECTION FUNCTION
+// LOAD SECTION
 function loadSection(id, data, allowAdd = true, isPlayable = true) {
   let container = document.getElementById(id);
-  container.innerHTML = ""; // clear previous
+  container.innerHTML = "";
 
   data.forEach((item, index) => {
     let card = document.createElement("div");
@@ -78,11 +82,14 @@ function loadSection(id, data, allowAdd = true, isPlayable = true) {
     card.appendChild(img);
     card.appendChild(title);
 
+    // PLAY SONG
     if (isPlayable) {
       card.onclick = () => {
         let songIndex = index;
+
         if (id === "marathi") songIndex += songs.trending.length;
-        else if (id === "motivational") songIndex += songs.trending.length + songs.marathi.length;
+        else if (id === "motivational")
+          songIndex += songs.trending.length + songs.marathi.length;
 
         let audio = songsAudio[songIndex];
 
@@ -90,22 +97,28 @@ function loadSection(id, data, allowAdd = true, isPlayable = true) {
           if (audio.paused) audio.play();
           else audio.pause();
         } else {
-          if (currentSongIndex >= 0) songsAudio[currentSongIndex].pause();
+          if (currentSongIndex >= 0)
+            songsAudio[currentSongIndex].pause();
+
           audio.play();
           currentSongIndex = songIndex;
         }
 
-        document.getElementById("nowPlaying").innerText = "Now Playing: " + item.name;
+        document.getElementById("nowPlaying").innerText =
+          "Now Playing: " + item.name;
       };
     }
 
+    // ADD TO PLAYLIST
     if (allowAdd && isPlayable) {
       let addBtn = document.createElement("button");
       addBtn.innerText = "Add to Playlist";
+
       addBtn.onclick = (e) => {
         e.stopPropagation();
         addToPlaylist(item.name);
       };
+
       card.appendChild(addBtn);
     }
 
@@ -113,26 +126,75 @@ function loadSection(id, data, allowAdd = true, isPlayable = true) {
   });
 }
 
-// PLAYLIST LOGIC
+// PLAYLIST STORAGE
 let playlists = {};
 
+// CREATE PLAYLIST
 function createPlaylist() {
   let name = prompt("Enter playlist name:");
   if (!name) return;
-  if (playlists[name]) { alert("Playlist already exists"); return; }
+
+  if (playlists[name]) {
+    alert("Playlist already exists");
+    return;
+  }
+
   playlists[name] = [];
   renderPlaylists();
 }
 
+// ADD SONG
 function addToPlaylist(song) {
   let names = Object.keys(playlists);
-  if (names.length === 0) { alert("Create playlist first"); return; }
+
+  if (names.length === 0) {
+    alert("Create playlist first");
+    return;
+  }
+
   let selected = prompt("Which playlist?\n" + names.join(", "));
-  if (!selected || !playlists[selected]) { alert("Invalid playlist name"); return; }
+
+  if (!selected || !playlists[selected]) {
+    alert("Invalid playlist");
+    return;
+  }
+
   playlists[selected].push(song);
   renderPlaylists();
 }
 
+// FIND SONG INDEX
+function getSongIndex(songName) {
+  let all = songs.trending.concat(songs.marathi, songs.motivational);
+
+  for (let i = 0; i < all.length; i++) {
+    if (all[i].name === songName) return i;
+  }
+  return -1;
+}
+
+// PLAY FROM PLAYLIST
+function playFromPlaylist(songName) {
+  let index = getSongIndex(songName);
+
+  if (index === -1) {
+    alert("Song not found");
+    return;
+  }
+
+  if (currentSongIndex >= 0) {
+    songsAudio[currentSongIndex].pause();
+  }
+
+  let audio = songsAudio[index];
+  audio.play();
+  currentSongIndex = index;
+
+  document.getElementById("nowPlaying").innerText =
+    "Now Playing: " + songName;
+}
+
+// RENDER PLAYLIST
 function renderPlaylists() {
   let container = document.getElementById("playlist");
   container.innerHTML = "";
@@ -144,7 +206,6 @@ function renderPlaylists() {
 
   let title = document.createElement("h3");
   title.innerText = "Your Playlists";
-  title.style.marginTop = "20px";
   container.appendChild(title);
 
   for (let pl in playlists) {
@@ -153,36 +214,50 @@ function renderPlaylists() {
     container.appendChild(plTitle);
 
     let ul = document.createElement("ul");
-    playlists[pl].forEach((song) => {
+
+    playlists[pl].forEach((song, index) => {
       let li = document.createElement("li");
-      li.innerText = song;
-      li.onclick = () => {
-        if (confirm("Remove this song from playlist?")) {
-          playlists[pl] = playlists[pl].filter((s) => s !== song);
+
+      li.innerHTML = `
+        <span class="songName">${song}</span>
+        <button style="margin-left:10px;background:red;color:white;border:none;border-radius:50%">❌</button>
+      `;
+
+      // PLAY
+      li.querySelector(".songName").onclick = () => {
+        playFromPlaylist(song);
+      };
+
+      // DELETE
+      li.querySelector("button").onclick = (e) => {
+        e.stopPropagation();
+
+        if (confirm("Remove this song?")) {
+          playlists[pl].splice(index, 1);
           renderPlaylists();
         }
       };
+
       ul.appendChild(li);
     });
+
     container.appendChild(ul);
   }
 }
 
-// SEARCH FUNCTIONALITY
-document.querySelector(".navbar input").addEventListener("input", function() {
+// SEARCH
+document.querySelector(".navbar input").addEventListener("input", function () {
   let query = this.value.toLowerCase();
 
-  // Show/hide sections
   function filterSection(id, data, allowAdd = true, isPlayable = true) {
     let container = document.getElementById(id);
-    let filtered = data.filter(item => item.name.toLowerCase().includes(query));
 
-    if (query === "" || id.toLowerCase().includes(query)) {
-      // show whole section if empty query or section name matches
-      loadSection(id, data, allowAdd, isPlayable);
-      container.style.display = "flex";
-    } else if (filtered.length > 0) {
-      loadSection(id, filtered, allowAdd, isPlayable);
+    let filtered = data.filter(item =>
+      item.name.toLowerCase().includes(query)
+    );
+
+    if (query === "" || filtered.length > 0) {
+      loadSection(id, filtered.length ? filtered : data, allowAdd, isPlayable);
       container.style.display = "flex";
     } else {
       container.style.display = "none";
