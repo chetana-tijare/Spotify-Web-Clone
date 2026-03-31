@@ -4,7 +4,7 @@
 
 ## 📌 Description  
 This project is a **Spotify Clone** focused on implementing a **Playlist Manager system**, inspired by Spotify.  
-It allows users to create playlists, add songs, and play them through an interactive and user-friendly interface.  
+It allows users to create playlists, add songs,removed song and play them through an interactive and user-friendly interface.  
 The project demonstrates the core functionality of modern music streaming applications in a simplified way.
 
 ---
@@ -13,7 +13,9 @@ The project demonstrates the core functionality of modern music streaming applic
 
 - 🎧 Play and pause songs  
 - 📂 Create playlists  
-- ➕ Add songs to playlists    
+- ➕ Add songs to playlists
+- ❌ Remove song from playlist
+- 🎼 play song from playlist
 - 🎨 Simple and responsive UI  
 
 ---
@@ -43,15 +45,16 @@ Spotify-Clone/
 1. User opens the application  
 2. Songs are displayed on the interface  
 3. User can create a playlist  
-4. Songs can be added to the playlist  
-5. User can play songs     
+4. Songs can be added to the playlist
+5. Songs can be removed from the playlist  
+6. User can play songs     
 
 ---
 
 ## 🔄 Main Operation  
 
 Playlist Management System:  
-Create Playlist → Add Songs  
+Create Playlist → Add Songs → Removed Songs → Play Songs
 
 ---
 
